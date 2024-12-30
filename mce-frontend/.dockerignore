@@ -1,0 +1,19 @@
+# Exclude virtual environments
+venv/
+.env/
+
+# Exclude version control files and directories
+.git/
+.gitignore
+
+# Exclude Docker-related files
+Dockerfile
+.dockerignore
+
+# Exclude markdown and documentation files
+*.md
+
+# Exclude other unnecessary files
+__pycache__/
+*.pyc
+*.log
