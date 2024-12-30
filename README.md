@@ -10,12 +10,18 @@ Personnal project created for learning purposes. The objective is to apply conce
 
 Back-end (python) for MaCapacitéEmprunt project
 
+### install requirements
+
+python3.10 -m venv ./venv
+source venv/bin/activate
+pip install -r requirements.txt
+
 ### docker build
 
-docker build -t backend-mce . --progress=plain
+docker build -t mce-backend . --progress=plain
 
 ### docker container run 
 
-docker container run --rm -p 8000:8000 --name mce backend-mce
+docker container run --rm -p 8000:8000 --name mce-back mce-backend
 
 ## mce-frontend
