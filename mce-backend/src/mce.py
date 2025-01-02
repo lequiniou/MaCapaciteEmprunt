@@ -20,16 +20,16 @@ def get_mce(
         float: mensualité maximale
         float: capacité d'emprunt maximale estimée
     """
-    # Calcul Mensualité maximale (i.e. taux endettement * reste à vivre)
+    # Compute maximum monthly payment
     mensualite_max = (revenus_mensuels - charges_mensuelles) * taux_endettement
-    # Taux d'intérêt mensuel
+    # Monthly interest rate
     taux_mensuel = taux_annuel / 12
-    # Nombre total de mensualités
+    # total nmber of monthly payments
     nombre_mensualites = duree_annees * 12
-    # Formule pour le capital emprunté (C)
+    # borrowing power
     if taux_mensuel > 0:
         capacite = mensualite_max * (1 - math.pow(1 + taux_mensuel, -nombre_mensualites)) / taux_mensuel
     else:
-        # Cas particulier : taux zéro
+        # special case: interest rate is zero
         capacite = mensualite_max * nombre_mensualites
     return round(mensualite_max, 2), round(capacite, 2)

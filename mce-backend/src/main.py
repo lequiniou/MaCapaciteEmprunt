@@ -6,20 +6,20 @@ from src.db_utils import open_db_connexion, verify_db_connection, insert_api_cal
 import psycopg2
 from datetime import datetime
 
-# Création de l'application
+# Create the api
 app = FastAPI()
 
 # Global variable for the database connection
 db_connection = None
 
-# Configuration des logs
+# logs config
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
     handlers=[logging.StreamHandler()]
 )
 
-# création du modèle de données en entrée
+# create the input data model
 class MCEInput(BaseModel):
     revenus_mensuels: float
     charges_mensuelles: float
@@ -52,7 +52,7 @@ def shutdown_event():
         except:
             logging.warning("Unable to close the database connection.")
 
-# Création de la POST API
+# Create /calculer-mce/ api
 @app.post("/calculer-mce/")
 def calculate_mce(input_data: MCEInput, request: Request):
     """_summary_
@@ -63,13 +63,13 @@ def calculate_mce(input_data: MCEInput, request: Request):
     Returns:
         dict: dictionnaire contenant la mensualité maximale ainsi que la capacité d'emprunt estimée
     """
-    # Obtenir le timestamp
+    # Get timestamp
     current_timestamp = datetime.now()
 
-    # Obtenir l'addresse ip du client
+    # Get client IP address
     client_ip = request.client.host
 
-    # Calculer la mensualité et la capacité d'emprunt
+    # Compute borrowing power & monthly payment
     mensualite_max, capacite = get_mce(
         revenus_mensuels=input_data.revenus_mensuels,
         charges_mensuelles=input_data.charges_mensuelles,
@@ -81,7 +81,7 @@ def calculate_mce(input_data: MCEInput, request: Request):
     # log call api
     logging.info(f"API called by IP: {client_ip}")
     
-    # Enregistrer l'appel dans la base de données, si disponible
+    # save api call within database if available
     # Use the global database connection
     global db_connection
     if db_connection:

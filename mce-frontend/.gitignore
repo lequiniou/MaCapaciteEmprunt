@@ -1,5 +1,5 @@
 #virtual environment
-venv/*
+venv/
 
 # python cache
 src/__pycache__/*
