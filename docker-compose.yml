@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  mce-backend:
+    build:
+      context: ./mce-backend
+    container_name: mce-backend
+    networks:
+      - mce-network
+    ports:
+      - "8000:8000"
+    environment:
+      POSTGRES_HOST: host.docker.internal
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: mce_db
+      POSTGRES_USER: mcebackend
+      POSTGRES_PASSWORD: mcebackendpass 
+      # careful with sensitive data such as passwords (in that case it's not that important but consider using a secrets manager)
+
+    restart: unless-stopped
+
+  mce-frontend:
+    build:
+      context: ./mce-frontend
+    container_name: mce-frontend
+    networks:
+      - mce-network
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+networks:
+  mce-network:
+    driver: bridge
