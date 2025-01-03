@@ -53,3 +53,17 @@ docker build -t mce-frontend . --progress=plain
 ```bash
 docker container run --rm -p 8080:8080 --name mce-frontend --network mce-network mce-frontend
 ```
+
+## launch both frontend & backend at the same time
+
+From the root :
+
+```bash
+docker compose up
+```
+
+To shut it down: 
+
+```bash
+docker compose down
+```
